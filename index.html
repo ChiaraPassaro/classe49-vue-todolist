@@ -51,17 +51,37 @@
         </div>
 
         <div class="new-todo">
-            <input type="text" placeholder="Nuovo Todo" />
-            <button>Aggiungi</button>
+            <input 
+              type="text" 
+              placeholder="Nuovo Todo" 
+              v-model="newTodoText"
+              @keyup.enter="addTodo"
+              />
+            <button
+              @click="addTodo">
+              Aggiungi
+            </button>
         </div>
 
         <div class="todos-container">
-            <ul>
-                <li class="todo">
-                    Testo Todo
-                    <i class="fas fa-times"></i>
+            <ul v-if="todos.length > 0">
+                <li 
+                  v-for="(todo, index) in todos" class="todo"
+                  :class="{ done: todo.done }"
+                >
+                    {{ todo.text }}
+                    <i
+                      @click="removeTodo(index)"
+                      class="fas fa-times"
+                      v-show="todo.done"
+                    ></i>
+                    <i
+                    @click="toggleDone(index)"
+                    class="fas fa-check"
+                    ></i>
                 </li>
             </ul>
+            <h2 v-else>Non ci sono Todos</h2>
         </div>
     </div>
 
@@ -69,3 +89,5 @@
 </body>
 
 </html>
+
+<!-- :class="(todo.done) ? 'done' : ''" -->

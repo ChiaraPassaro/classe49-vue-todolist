@@ -13,26 +13,60 @@ const app = new Vue({
     data: {
         newTodoText: '',
         todos: [
-            {
-                text: 'Fare i compiti',
-                done: false
-            },
-            {
-                text: 'Fare la spesa',
-                done: true
-            },
-            {
-                text: 'Fare il bucato',
-                done: false
-            }
+            // {
+            //     text: 'Fare i compiti',
+            //     done: false
+            // },
+            // {
+            //     text: 'Fare la spesa',
+            //     done: true
+            // },
+            // {
+            //     text: 'Fare il bucato',
+            //     done: false
+            // }
         ]
+  },
+  created() {
+    this.todos = [
+      {
+        text: "Fare i compiti",
+        done: false,
+      },
+      {
+        text: "Fare la spesa",
+        done: true,
+      },
+      {
+        text: "Fare il bucato",
+        done: false,
+      },
+    ];
+  },
+  methods: {
+    addTodo() {
+      // let text = this.newTodoText;
+      // push inseriamo elemento in fondo
+      // con unshift all'inizio
+      if (this.newTodoText.trim().length > 0) {
+        this.todos.unshift({
+          text: this.newTodoText,
+          done: false,
+        });
+        this.newTodoText = '';
+      }
     },
-    methods: {
-        addTodo() {
-        },
-        removeTodo(todoIndex) {
-        },
-        toggleDone(todoIndex) {
-        }
+    removeTodo(todoIndex) {
+      this.todos.splice(todoIndex, 1);
+    },
+    toggleDone(todoIndex) {
+      // if (this.todos[todoIndex].done) {
+      //   this.todos[todoIndex].done = false;
+      // } else {
+      //   this.todos[todoIndex].done = true;
+      // }
+      
+      this.todos[todoIndex].done = !this.todos[todoIndex].done;
     }
+  }
 })
